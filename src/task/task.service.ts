@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
-
+import { Task, TaskDocument } from './entities/task.entity';
+import { Schema as MongooseSchema } from 'mongoose';
 @Injectable()
 export class TaskService {
-  create(createTaskInput: CreateTaskInput) {
-    return 'This action adds a new task';
+  constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
+  create(createTaskInput: CreateTaskInput): Promise<TaskDocument> {
+    const newTask = new this.taskModel(createTaskInput);
+    return newTask.save();
   }
 
-  findAll() {
-    return `This action returns all task`;
+  findAll(): Promise<TaskDocument[]> {
+    return this.taskModel.find({}).exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: MongooseSchema.Types.ObjectId): Promise<TaskDocument> {
+    return this.taskModel.findById(id).exec();
   }
 
-  update(id: number, updateTaskInput: UpdateTaskInput) {
-    return `This action updates a #${id} task`;
+  update(updateTaskInput: UpdateTaskInput) {
+    return this.taskModel.findByIdAndUpdate(
+      updateTaskInput._id,
+      updateTaskInput,
+      { new: true },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: MongooseSchema.Types.ObjectId): Promise<TaskDocument> {
+    return this.taskModel.findByIdAndDelete(id).exec();
   }
 }

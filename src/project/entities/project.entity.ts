@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Schema as MongooseSchema, Document } from 'mongoose'
+import { Schema as MongooseSchema, Document } from 'mongoose';
 
 export enum Status {
   yet = 0,
@@ -11,7 +11,7 @@ export enum Status {
 @Schema()
 @ObjectType()
 export class Project {
-  @Field(() => Int, { description: '项目id' })
+  @Field(() => String, { description: '项目id' })
   @Prop()
   _id: MongooseSchema.Types.ObjectId;
 
@@ -25,7 +25,7 @@ export class Project {
 
   @Field({ description: '项目参与人', nullable: true })
   @Prop()
-  persons?: object[]
+  persons?: MongooseSchema.Types.ObjectId[];
 
   @Field({ description: '项目开始时间', nullable: true })
   @Prop()
@@ -36,6 +36,6 @@ export class Project {
   endDate?: string;
 }
 
-export type ProjectDocument = Project & Document
+export type ProjectDocument = Project & Document;
 
-export const ProjectSchema = SchemaFactory.createForClass(Project)
+export const ProjectSchema = SchemaFactory.createForClass(Project);

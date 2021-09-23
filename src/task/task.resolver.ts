@@ -3,10 +3,11 @@ import { TaskService } from './task.service';
 import { Task } from './entities/task.entity';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
+import { Schema as MongooseSchema } from 'mongoose';
 
 @Resolver(() => Task)
 export class TaskResolver {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private readonly taskService: TaskService) { }
 
   @Mutation(() => Task)
   createTask(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
@@ -19,17 +20,21 @@ export class TaskResolver {
   }
 
   @Query(() => Task, { name: 'task' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(
+    @Args('id', { type: () => String }) id: MongooseSchema.Types.ObjectId,
+  ) {
     return this.taskService.findOne(id);
   }
 
   @Mutation(() => Task)
   updateTask(@Args('updateTaskInput') updateTaskInput: UpdateTaskInput) {
-    return this.taskService.update(updateTaskInput.id, updateTaskInput);
+    return this.taskService.update(updateTaskInput);
   }
 
   @Mutation(() => Task)
-  removeTask(@Args('id', { type: () => Int }) id: number) {
+  removeTask(
+    @Args('id', { type: () => Int }) id: MongooseSchema.Types.ObjectId,
+  ) {
     return this.taskService.remove(id);
   }
 }

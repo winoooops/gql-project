@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose'
+import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Status } from 'src/project/entities/project.entity';
 
 export enum TaskType {
@@ -9,21 +9,19 @@ export enum TaskType {
   Chore = 3,
   Refactor = 4,
   doc = 5,
-  test = 6
+  test = 6,
 }
 
 export enum TaskPriority {
   重要紧急 = 1,
   非重要紧急 = 2,
   重要非紧急 = 3,
-  非重要非紧急 = 4
+  非重要非紧急 = 4,
 }
-
 
 @Schema()
 @ObjectType()
 export class Task {
-
   @Prop()
   @Field({ description: '任务id' })
   _id: MongooseSchema.Types.ObjectId;
@@ -34,7 +32,7 @@ export class Task {
 
   @Prop()
   @Field({ description: '任务类型' })
-  taskType: TaskType
+  taskType: TaskType;
 
   @Prop()
   @Field({ description: '任务优先级' })
@@ -46,19 +44,17 @@ export class Task {
 
   @Prop()
   @Field(() => Int, { nullable: true, description: '预估时间' })
-  estimatedDay?: number
+  estimatedDay?: number;
 
   @Prop()
   @Field({ nullable: true, description: '描述' })
   desc?: string;
 
   @Prop()
-  @Field({ nullable: true, description: '任务负责人' })
-  persons?: string[];
-
+  @Field(() => [String], { nullable: true, description: '任务负责人' })
+  persons?: MongooseSchema.Types.ObjectId[];
 }
 
+export type TaskDocument = Task & Document;
 
-export type TaskDocument = Task & Document
-
-export const TaskSchema = SchemaFactory.createForClass(Task)
+export const TaskSchema = SchemaFactory.createForClass(Task);

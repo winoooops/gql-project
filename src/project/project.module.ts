@@ -5,7 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Project, ProjectSchema } from './entities/project.entity';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }])],
-  providers: [ProjectResolver, ProjectService]
+  imports: [
+    MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
+  ],
+  providers: [ProjectResolver, ProjectService],
 })
-export class ProjectModule { }
+export class ProjectModule {}

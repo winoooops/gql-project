@@ -9,9 +9,9 @@ import { TaskModule } from './task/task.module';
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/db'),
     ProjectModule,
-    TaskModule
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
