@@ -4,6 +4,7 @@ import { Task } from './entities/task.entity';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Schema as MongooseSchema } from 'mongoose';
+import { ListProjectInput } from 'src/project/dto/list-project.input';
 
 @Resolver(() => Task)
 export class TaskResolver {
@@ -15,8 +16,8 @@ export class TaskResolver {
   }
 
   @Query(() => [Task], { name: 'task' })
-  findAll() {
-    return this.taskService.findAll();
+  findAll(listTaskInput: ListProjectInput) {
+    return this.taskService.findAll(listTaskInput);
   }
 
   @Query(() => Task, { name: 'task' })

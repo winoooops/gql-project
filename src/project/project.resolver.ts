@@ -18,7 +18,10 @@ export class ProjectResolver {
   }
 
   @Query(() => [Project], { name: 'project' })
-  findAll(@Args('listProjectInput') ListProjectInput: ListProjectInput) {
+  findAll(
+    @Args('listProjectInput', { nullable: true })
+    ListProjectInput: ListProjectInput,
+  ) {
     return this.projectService.findAll(ListProjectInput);
   }
 
