@@ -23,6 +23,6 @@ export class CreateTaskInput {
   @Field({ nullable: true, description: '描述' })
   desc?: string;
 
-  @Field(() => String, { nullable: true, description: '任务负责人' })
+  @Field(() => [String], { nullable: true, description: '任务负责人' })
   persons?: MongooseSchema.Types.ObjectId[];
 }
