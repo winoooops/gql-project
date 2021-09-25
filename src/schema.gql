@@ -35,6 +35,9 @@ input CreateTaskInput {
   """任务优先级"""
   priority: Float!
 
+  """项目id"""
+  projectId: String!
+
   """任务状态"""
   status: Float!
 
@@ -117,6 +120,12 @@ type Task {
   """任务优先级"""
   priority: Float!
 
+  """项目信息"""
+  project: Project!
+
+  """项目id"""
+  projectId: String!
+
   """任务状态"""
   status: Float!
 
@@ -161,6 +170,9 @@ input UpdateTaskInput {
 
   """任务优先级"""
   priority: Float
+
+  """项目id"""
+  projectId: String
 
   """任务状态"""
   status: Float

@@ -5,7 +5,7 @@ import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Task, TaskDocument } from './entities/task.entity';
 import { Schema as MongooseSchema } from 'mongoose';
-import { ListProjectInput } from 'src/project/dto/list-project.input';
+import { ListTaskInput } from './dto/list-task.input';
 @Injectable()
 export class TaskService {
   constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
@@ -14,8 +14,8 @@ export class TaskService {
     return newTask.save();
   }
 
-  findAll(listProjectInput: ListProjectInput): Promise<TaskDocument[]> {
-    return this.taskModel.find(listProjectInput).exec();
+  findAll(listTaskInput: ListTaskInput): Promise<TaskDocument[]> {
+    return this.taskModel.find(listTaskInput).exec();
   }
 
   findOne(id: MongooseSchema.Types.ObjectId): Promise<TaskDocument> {

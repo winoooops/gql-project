@@ -4,12 +4,15 @@ import { Schema as MongooseSchema } from 'mongoose';
 import { TaskPriority, TaskType } from '../entities/task.entity';
 import { Status } from 'src/project/entities/project.entity';
 @InputType()
-export class UpdateTaskInput extends PartialType(CreateTaskInput) {
+export class ListTaskInput extends PartialType(CreateTaskInput) {
   @Field(() => String, { nullable: true })
   _id?: MongooseSchema.Types.ObjectId;
 
-  @Field(() => String, { description: '项目名称', nullable: true })
+  @Field(() => String, { description: '任务名称', nullable: true })
   name?: string;
+
+  @Field(() => String, { description: '项目id', nullable: true })
+  projectId: MongooseSchema.Types.ObjectId;
 
   @Field({ description: '任务类型', nullable: true })
   taskType?: TaskType;

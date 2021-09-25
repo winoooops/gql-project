@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Status } from 'src/project/entities/project.entity';
+import { Project, Status } from 'src/project/entities/project.entity';
 
 export enum TaskType {
   Feature = 1,
@@ -32,6 +32,14 @@ export class Task {
   @Prop()
   @Field({ description: '任务类型' })
   taskType: TaskType;
+
+  @Prop()
+  @Field(() => String, { description: '项目id' })
+  projectId: MongooseSchema.Types.ObjectId;
+
+  @Prop()
+  @Field(() => Project, { description: '项目信息' })
+  project: Project;
 
   @Prop()
   @Field({ description: '任务优先级' })

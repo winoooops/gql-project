@@ -17,6 +17,9 @@ export class CreateTaskInput {
   @Field({ description: '任务状态' })
   status: Status;
 
+  @Field(() => String, { description: '项目id' })
+  projectId: MongooseSchema.Types.ObjectId;
+
   @Field(() => Int, { nullable: true, description: '预估时间' })
   estimatedDay?: number;
 
