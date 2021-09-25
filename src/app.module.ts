@@ -11,7 +11,12 @@ import { TaskModule } from './task/task.module';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      playground: true,
+      playground: {
+        settings: {
+          'editor.cursorShape': 'block',
+          'editor.fontFamily': 'Georgia',
+        },
+      },
       sortSchema: true,
       debug: false,
     }),
