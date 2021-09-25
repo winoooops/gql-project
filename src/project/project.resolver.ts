@@ -17,10 +17,10 @@ export class ProjectResolver {
     return this.projectService.create(createProjectInput);
   }
 
-  @Query(() => [Project], { name: 'project' })
+  @Query(() => [Project], { name: 'projects' })
   findAll(
     @Args('listProjectInput', { nullable: true })
-    ListProjectInput: ListProjectInput,
+    ListProjectInput?: ListProjectInput,
   ) {
     return this.projectService.findAll(ListProjectInput);
   }

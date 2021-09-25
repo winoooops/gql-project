@@ -22,8 +22,7 @@ export enum TaskPriority {
 @Schema()
 @ObjectType()
 export class Task {
-  @Prop()
-  @Field({ description: '任务id' })
+  @Field(() => String, { description: '任务id' })
   _id: MongooseSchema.Types.ObjectId;
 
   @Prop()

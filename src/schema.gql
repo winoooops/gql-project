@@ -1,0 +1,170 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateProjectInput {
+  """项目结束时间"""
+  endDate: String
+
+  """项目名称"""
+  name: String!
+
+  """项目参与人"""
+  persons: [String!]
+
+  """项目开始时间"""
+  startDate: String
+
+  """进行状态"""
+  status: Float
+}
+
+input CreateTaskInput {
+  """描述"""
+  desc: String
+
+  """预估时间"""
+  estimatedDay: Int
+
+  """任务名称"""
+  name: String!
+
+  """任务负责人"""
+  persons: [String!]
+
+  """任务优先级"""
+  priority: Float!
+
+  """任务状态"""
+  status: Float!
+
+  """任务类型"""
+  taskType: Float!
+}
+
+input ListProjectInput {
+  """项目id"""
+  _id: String
+
+  """项目结束时间"""
+  endDate: String
+
+  """项目名称"""
+  name: String
+
+  """项目参与人"""
+  persons: [String!]
+
+  """项目开始时间"""
+  startDate: String
+
+  """进行状态"""
+  status: Float
+}
+
+type Mutation {
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  removeProject(id: String!): Project!
+  removeTask(id: String!): Task!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
+}
+
+type Project {
+  """项目id"""
+  _id: String!
+
+  """项目结束时间"""
+  endDate: String
+
+  """项目名称"""
+  name: String!
+
+  """项目参与人"""
+  persons: [String!]
+
+  """项目开始时间"""
+  startDate: String
+
+  """进行状态"""
+  status: Float
+}
+
+type Query {
+  project(id: String!): Project!
+  projects(listProjectInput: ListProjectInput): [Project!]!
+  task(id: String!): Task!
+  tasks: [Task!]!
+}
+
+type Task {
+  """任务id"""
+  _id: String!
+
+  """描述"""
+  desc: String
+
+  """预估时间"""
+  estimatedDay: Int
+
+  """任务名称"""
+  name: String!
+
+  """任务负责人"""
+  persons: [String!]
+
+  """任务优先级"""
+  priority: Float!
+
+  """任务状态"""
+  status: Float!
+
+  """任务类型"""
+  taskType: Float!
+}
+
+input UpdateProjectInput {
+  """项目id"""
+  _id: String!
+
+  """项目结束时间"""
+  endDate: String
+
+  """项目名称"""
+  name: String
+
+  """项目参与人"""
+  persons: [String!]
+
+  """项目开始时间"""
+  startDate: String
+
+  """进行状态"""
+  status: Float
+}
+
+input UpdateTaskInput {
+  _id: String!
+
+  """描述"""
+  desc: String
+
+  """预估时间"""
+  estimatedDay: Int
+
+  """项目名称"""
+  name: String!
+
+  """任务负责人"""
+  persons: [String!]
+
+  """任务优先级"""
+  priority: Float
+
+  """任务状态"""
+  status: Float
+
+  """任务类型"""
+  taskType: Float
+}

@@ -12,7 +12,6 @@ export enum Status {
 @ObjectType()
 export class Project {
   @Field(() => String, { description: '项目id' })
-  @Prop()
   _id: MongooseSchema.Types.ObjectId;
 
   @Field({ description: '项目名称' })
@@ -23,7 +22,7 @@ export class Project {
   @Prop()
   status?: Status;
 
-  @Field({ description: '项目参与人', nullable: true })
+  @Field(() => [String], { description: '项目参与人', nullable: true })
   @Prop()
   persons?: MongooseSchema.Types.ObjectId[];
 

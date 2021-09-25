@@ -14,7 +14,7 @@ export class UpdateProjectInput extends PartialType(CreateProjectInput) {
   @Field({ description: '进行状态', nullable: true })
   status?: Status;
 
-  @Field({ description: '项目参与人', nullable: true })
+  @Field(() => [String], { description: '项目参与人', nullable: true })
   persons?: MongooseSchema.Types.ObjectId[];
 
   @Field({ description: '项目开始时间', nullable: true })

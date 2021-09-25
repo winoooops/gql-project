@@ -15,7 +15,7 @@ export class TaskResolver {
     return this.taskService.create(createTaskInput);
   }
 
-  @Query(() => [Task], { name: 'task' })
+  @Query(() => [Task], { name: 'tasks' })
   findAll(listTaskInput: ListProjectInput) {
     return this.taskService.findAll(listTaskInput);
   }
@@ -34,7 +34,7 @@ export class TaskResolver {
 
   @Mutation(() => Task)
   removeTask(
-    @Args('id', { type: () => Int }) id: MongooseSchema.Types.ObjectId,
+    @Args('id', { type: () => String }) id: MongooseSchema.Types.ObjectId,
   ) {
     return this.taskService.remove(id);
   }

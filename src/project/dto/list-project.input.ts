@@ -6,8 +6,8 @@ export class ListProjectInput {
   @Field(() => String, { description: '项目id', nullable: true })
   _id?: MongooseSchema.Types.ObjectId;
 
-  @Field({ description: '项目名称' })
-  name: string;
+  @Field({ description: '项目名称', nullable: true })
+  name?: string;
 
   @Field({ description: '进行状态', nullable: true })
   status?: Status;
