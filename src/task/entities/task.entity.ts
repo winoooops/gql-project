@@ -37,7 +37,7 @@ export class Task {
   @Field(() => String, { description: '项目id' })
   projectId: MongooseSchema.Types.ObjectId;
 
-  @Prop()
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'project' })
   @Field(() => Project, { description: '项目信息' })
   project: Project;
 

@@ -67,10 +67,16 @@ input ListProjectInput {
 
 type Mutation {
   createProject(createProjectInput: CreateProjectInput!): Project!
+
+  """创建任务"""
   createTask(createTaskInput: CreateTaskInput!): Task!
   removeProject(id: String!): Project!
+
+  """根据id删除任务"""
   removeTask(id: String!): Task!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
+
+  """编辑任务"""
   updateTask(updateTaskInput: UpdateTaskInput!): Task!
 }
 
@@ -92,12 +98,28 @@ type Project {
 
   """进行状态"""
   status: Float
+
+  """项目任务ids"""
+  taskIds: [String!]
+
+  """项目全部任务"""
+  tasks: [Task!]
 }
 
 type Query {
+  """根据项目id查找任务"""
+  findByProjectId(projectId: String!): [Task!]!
+
+  """根据id查找项目"""
   project(id: String!): Project!
+
+  """全部项目"""
   projects(listProjectInput: ListProjectInput): [Project!]!
+
+  """根据id查找任务"""
   task(id: String!): Task!
+
+  """条件查询任务"""
   tasks: [Task!]!
 }
 
@@ -151,6 +173,9 @@ input UpdateProjectInput {
 
   """进行状态"""
   status: Float
+
+  """项目任务ids"""
+  taskIds: [String!]
 }
 
 input UpdateTaskInput {

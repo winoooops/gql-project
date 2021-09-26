@@ -1,5 +1,5 @@
 import { CreateProjectInput } from './create-project.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { Schema as MongooseSchema } from 'mongoose'
 import { Status } from '../entities/project.entity';
 
@@ -13,6 +13,9 @@ export class UpdateProjectInput extends PartialType(CreateProjectInput) {
 
   @Field({ description: '进行状态', nullable: true })
   status?: Status;
+
+  @Field(() => [String], { description: '项目任务ids', nullable: true })
+  taskIds?: string[]
 
   @Field(() => [String], { description: '项目参与人', nullable: true })
   persons?: MongooseSchema.Types.ObjectId[];

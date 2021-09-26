@@ -22,6 +22,10 @@ export class TaskService {
     return this.taskModel.findById(id).exec();
   }
 
+  findByProjectId(projectId: MongooseSchema.Types.ObjectId): Promise<TaskDocument[]> {
+    return this.taskModel.find({ projectId: projectId }).exec()
+  }
+
   update(updateTaskInput: UpdateTaskInput) {
     return this.taskModel.findByIdAndUpdate(
       updateTaskInput._id,
