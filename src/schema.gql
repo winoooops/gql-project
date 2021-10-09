@@ -45,6 +45,20 @@ input CreateTaskInput {
   taskType: Float!
 }
 
+input CreateUserInput {
+  """头像"""
+  avator: String
+
+  """邮箱地址"""
+  email: String!
+
+  """用户密码"""
+  password: String!
+
+  """用户名"""
+  username: String!
+}
+
 input ListProjectInput {
   """项目id"""
   _id: String
@@ -70,14 +84,17 @@ type Mutation {
 
   """创建任务"""
   createTask(createTaskInput: CreateTaskInput!): Task!
+  createUser(createUserInput: CreateUserInput!): User!
   removeProject(id: String!): Project!
 
   """根据id删除任务"""
   removeTask(id: String!): Task!
+  removeUser(id: String!): User!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
 
   """编辑任务"""
   updateTask(updateTaskInput: UpdateTaskInput!): Task!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Project {
@@ -121,6 +138,7 @@ type Query {
 
   """条件查询任务"""
   tasks: [Task!]!
+  user(id: String!): User!
 }
 
 type Task {
@@ -204,4 +222,36 @@ input UpdateTaskInput {
 
   """任务类型"""
   taskType: Float
+}
+
+input UpdateUserInput {
+  """头像"""
+  avator: String
+
+  """邮箱地址"""
+  email: String
+  id: String!
+
+  """用户密码"""
+  password: String
+
+  """用户名"""
+  username: String
+}
+
+type User {
+  """用户ID"""
+  _id: String!
+
+  """头像"""
+  avatar: String
+
+  """邮箱地址"""
+  email: String!
+
+  """用户密码"""
+  password: String!
+
+  """用户名"""
+  username: String!
 }

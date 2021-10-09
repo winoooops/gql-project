@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectModule } from './project/project.module';
 import { TaskModule } from './task/task.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TaskModule } from './task/task.module';
     MongooseModule.forRoot('mongodb://localhost:27017/db'),
     ProjectModule,
     TaskModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
