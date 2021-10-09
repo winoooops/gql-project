@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { UserInputError, ApolloError } from 'apollo-server-express'
 import { Model, Schema as MongooseSchema } from 'mongoose';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -9,7 +10,11 @@ import { User, UserDocument } from './entities/user.entity';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-  async create(createUserInput: CreateUserInput): Promise<UserDocument> {
+  async create(createUserInput: CreateUserInput): Promise<UserDocument | ApolloError> {
+    // 判断是否email是否被注册过
+    const oldRecord = await this.userModel.findOne({ email: createUserInput.email }).exec()
+    if (oldRecord) throw new UserInputError('邮箱已被注册')
+
     const newUser = new this.userModel(createUserInput)
     return newUser.save()
   }

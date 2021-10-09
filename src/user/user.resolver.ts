@@ -1,20 +1,21 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { User } from './entities/user.entity';
+import { User, UserDocument } from './entities/user.entity';
 import { Schema as MongooseSchema } from 'mongoose'
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { ApolloError } from 'apollo-server-errors';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) { }
 
   @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+  register(@Args('createUserInput') createUserInput: CreateUserInput): Promise<UserDocument | ApolloError> {
     return this.userService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'user' })
+  @Query(() => [User], { name: 'users' })
   findAll() {
     return this.userService.findAll();
   }

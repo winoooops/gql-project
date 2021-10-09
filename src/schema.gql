@@ -84,7 +84,7 @@ type Mutation {
 
   """创建任务"""
   createTask(createTaskInput: CreateTaskInput!): Task!
-  createUser(createUserInput: CreateUserInput!): User!
+  register(createUserInput: CreateUserInput!): User!
   removeProject(id: String!): Project!
 
   """根据id删除任务"""
@@ -139,6 +139,7 @@ type Query {
   """条件查询任务"""
   tasks: [Task!]!
   user(id: String!): User!
+  users: [User!]!
 }
 
 type Task {
