@@ -1,7 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Document, Schema as MongooseSchema } from 'mongoose'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import * as bcrypt from 'bcrypt'
 
+const saltRounds = 10
 
 export interface UserSettings {
   isDarkMode: boolean;
@@ -39,3 +41,15 @@ export class User {
 export type UserDocument = User & Document
 
 export const UserSchema = SchemaFactory.createForClass(User)
+
+
+
+// 加密密码
+UserSchema.pre('save', function (this: UserDocument, next: (error?: Error | undefined) => void) {
+  if (!this.isModified('password')) return next()
+  bcrypt.hash(this.password, saltRounds, (err: Error, hash: string) => {
+    if (err) return next(err)
+    this.password = hash
+    next()
+  })
+})
