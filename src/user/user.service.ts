@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserInputError, ApolloError } from 'apollo-server-express'
 import { Model, Schema as MongooseSchema } from 'mongoose';
 import { MailService } from 'src/system/mail/mail.service';
-import { SentMessageInfo } from 'nodemailer';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
