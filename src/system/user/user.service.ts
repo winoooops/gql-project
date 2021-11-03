@@ -20,12 +20,14 @@ export class UserService {
     const oldRecord = await this.userModel.findOne({ email: createUserInput.email }).exec()
     if (oldRecord) throw new UserInputError('邮箱已被注册')
 
+    const newUser = new this.userModel(createUserInput)
+
     // 发送注册邮箱
-    await this.mailService.sendEmail(createUserInput)
+    await this.mailService.sendEmail(newUser)
       .catch(err => { throw new UserInputError(err) })
 
-    const newUser = new this.userModel(createUserInput)
-    return newUser.save()
+    return newUser
+    // return newUser.save()
   }
 
   async findAll(): Promise<UserDocument[]> {

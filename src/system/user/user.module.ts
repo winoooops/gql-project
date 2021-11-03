@@ -4,6 +4,7 @@ import { UserResolver } from './user.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
 import { MailService } from 'src/system/mail/mail.service';
+import { UserController } from './user.controller';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { MailService } from 'src/system/mail/mail.service';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  providers: [UserResolver, UserService, MailService]
+  providers: [UserResolver, UserService, MailService],
+  controllers: [UserController]
 })
 export class UserModule { }
