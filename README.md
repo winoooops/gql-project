@@ -1,5 +1,5 @@
 # Vue-Tracker
-全栈轻架构的项目进度跟踪管理工具**Vue Tracker**的后端部分。
+全栈轻架构的项目进度跟踪管理工具**Atomic Tracker**的后端部分。
 后端架构为NestJS，其中使用MongoDB数据层，Mongoose为ORM层, Graphql为数据聚合层。 
 ## Description
 
