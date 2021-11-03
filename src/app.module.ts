@@ -7,7 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectModule } from './project/project.module';
 import { TaskModule } from './task/task.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './system/user/user.module';
 import { SystemModule } from './system/system.module';
 
 @Module({

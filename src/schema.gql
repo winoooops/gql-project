@@ -247,6 +247,9 @@ type User {
   """头像"""
   avatar: String
 
+  """是否邮箱确认"""
+  confirmed: Boolean
+
   """邮箱地址"""
   email: String!
 
