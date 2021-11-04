@@ -30,12 +30,12 @@ export class User {
   email: string;
 
   @Prop()
-  @Field(() => String, { description: '头像', nullable: true })
-  avatar?: string;
+  @Field(() => Boolean, { description: '是否邮箱确认', defaultValue: false, })
+  confirmed: boolean;
 
   @Prop()
-  @Field(() => Boolean, { description: '是否邮箱确认', nullable: true })
-  confirmed?: boolean
+  @Field(() => String, { description: '头像', nullable: true })
+  avatar?: string;
 
   // @Prop()
   // @Field({ description: '用户设置' })

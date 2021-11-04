@@ -1,11 +1,11 @@
 import { CreateUserInput } from './create-user.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
-import { Schema as MongooseSchema } from 'mongoose'
+import { Schema as MongooseSchema, Types } from 'mongoose'
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
   @Field(() => String)
-  id: MongooseSchema.Types.ObjectId;
+  _id: Types.ObjectId;
 
   @Field({ description: '用户名', nullable: true })
   username?: string;
@@ -18,4 +18,7 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
 
   @Field({ description: '头像', nullable: true })
   avator?: string;
+
+  @Field(() => Boolean, { description: '是否确认', nullable: true })
+  confirmed?: boolean;
 }

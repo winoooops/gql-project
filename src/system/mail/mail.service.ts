@@ -1,5 +1,5 @@
 import { MailerService } from "@nestjs-modules/mailer";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { SentMessageInfo } from 'nodemailer';
 import { v4 } from 'uuid'
 import { redis } from "src/redis";
@@ -8,7 +8,10 @@ import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class MailService {
-  constructor(private readonly mailerService: MailerService, private readonly configService: ConfigService) { }
+  constructor(
+    private readonly mailerService: MailerService,
+    private readonly configService: ConfigService,
+  ) { }
 
   async sendEmail(newUser: UserDocument): Promise<SentMessageInfo> {
     // generate uuid
@@ -24,7 +27,6 @@ export class MailService {
       from: 'service@wino4999.onexmail.com',
       subject: 'Please Confirm Your Email',
       template: './templates/welcome',
-      // html: '<p>email</p>',
       context: {
         username: newUser.username,
         password: newUser.password,
@@ -33,7 +35,11 @@ export class MailService {
     })
   }
 
-  async confirmEmail(id: string) {
+  async confirmEmail(id: string): Promise<string> {
+    const userId = await redis.get(id)
+    // if userId has expired or not exist  
+    if (!userId) throw new NotFoundException()
 
+    return userId
   }
 }

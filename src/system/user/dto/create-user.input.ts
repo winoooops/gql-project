@@ -13,4 +13,7 @@ export class CreateUserInput {
 
   @Field({ description: '头像', nullable: true })
   avator?: string;
+
+  @Field(() => Boolean, { description: '是否确认', defaultValue: false })
+  confirmed: boolean;
 }

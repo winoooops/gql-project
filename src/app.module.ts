@@ -7,7 +7,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectModule } from './main/project/project.module';
 import { TaskModule } from './main/task/task.module';
-import { UserModule } from './system/user/user.module';
 import { SystemModule } from './system/system.module';
 
 @Module({
@@ -33,7 +32,6 @@ import { SystemModule } from './system/system.module';
     MongooseModule.forRoot('mongodb://localhost:27017/db'),
     ProjectModule,
     TaskModule,
-    UserModule,
     SystemModule,
   ],
   controllers: [AppController],

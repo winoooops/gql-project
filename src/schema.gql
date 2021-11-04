@@ -49,6 +49,9 @@ input CreateUserInput {
   """头像"""
   avator: String
 
+  """是否确认"""
+  confirmed: Boolean = false
+
   """邮箱地址"""
   email: String!
 
@@ -226,12 +229,16 @@ input UpdateTaskInput {
 }
 
 input UpdateUserInput {
+  _id: String!
+
   """头像"""
   avator: String
 
+  """是否确认"""
+  confirmed: Boolean
+
   """邮箱地址"""
   email: String
-  id: String!
 
   """用户密码"""
   password: String
@@ -248,7 +255,7 @@ type User {
   avatar: String
 
   """是否邮箱确认"""
-  confirmed: Boolean
+  confirmed: Boolean!
 
   """邮箱地址"""
   email: String!

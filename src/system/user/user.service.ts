@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserInputError, ApolloError } from 'apollo-server-express'
-import { Model, Schema as MongooseSchema } from 'mongoose';
+import { Model, Schema as MongooseSchema, Types, } from 'mongoose';
 import { MailService } from 'src/system/mail/mail.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -26,27 +26,26 @@ export class UserService {
     await this.mailService.sendEmail(newUser)
       .catch(err => { throw new UserInputError(err) })
 
-    return newUser
-    // return newUser.save()
+    return newUser.save()
   }
 
   async findAll(): Promise<UserDocument[]> {
     return this.userModel.find().exec();
   }
 
-  findOneById(id: MongooseSchema.Types.ObjectId): Promise<UserDocument> {
+  async findOneById(id: Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findById(id).exec();
   }
 
-  update(updateUserInput: UpdateUserInput) {
+  async update(updateUserInput: UpdateUserInput) {
     return this.userModel.findByIdAndUpdate(
-      updateUserInput.id,
+      updateUserInput._id,
       updateUserInput,
       { new: true },
     )
   }
 
-  remove(id: MongooseSchema.Types.ObjectId): Promise<UserDocument> {
+  remove(id: Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findOneAndDelete({ _id: id }).exec();
   }
 }
