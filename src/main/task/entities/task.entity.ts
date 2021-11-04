@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Project, Status } from 'src/project/entities/project.entity';
+import { Project, Status } from 'src/main/project/entities/project.entity';
 
 export enum TaskType {
   Feature = 1,

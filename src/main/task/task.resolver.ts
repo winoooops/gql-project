@@ -12,8 +12,8 @@ import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Schema as MongooseSchema } from 'mongoose';
 import { ListTaskInput } from './dto/list-task.input';
-import { ProjectService } from 'src/project/project.service';
-import { Project } from 'src/project/entities/project.entity';
+import { ProjectService } from 'src/main/project/project.service';
+import { Project } from 'src/main/project/entities/project.entity';
 
 @Resolver(() => Task)
 export class TaskResolver {

@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { Status } from 'src/project/entities/project.entity';
+import { Status } from 'src/main/project/entities/project.entity';
 import { TaskPriority, TaskType } from '../entities/task.entity';
 import { Schema as MongooseSchema } from 'mongoose';
 

@@ -5,8 +5,8 @@ import { ConfigModule } from '@nestjs/config'
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProjectModule } from './project/project.module';
-import { TaskModule } from './task/task.module';
+import { ProjectModule } from './main/project/project.module';
+import { TaskModule } from './main/task/task.module';
 import { UserModule } from './system/user/user.module';
 import { SystemModule } from './system/system.module';
 

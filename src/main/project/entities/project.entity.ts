@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongooseSchema, Document } from 'mongoose';
-import { Task } from 'src/task/entities/task.entity';
+import { Task } from 'src/main/task/entities/task.entity';
 
 export enum Status {
   yet = 0,

@@ -3,8 +3,8 @@ import { ProjectService } from './project.service';
 import { ProjectResolver } from './project.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Project, ProjectSchema } from './entities/project.entity';
-import { Task, TaskSchema } from 'src/task/entities/task.entity';
-import { TaskService } from 'src/task/task.service';
+import { Task, TaskSchema } from 'src/main/task/entities/task.entity';
+import { TaskService } from 'src/main/task/task.service';
 
 @Module({
   imports: [

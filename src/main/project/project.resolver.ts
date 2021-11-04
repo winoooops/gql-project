@@ -5,8 +5,8 @@ import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { ListProjectInput } from './dto/list-project.input';
-import { Task } from 'src/task/entities/task.entity';
-import { TaskService } from 'src/task/task.service';
+import { Task } from 'src/main/task/entities/task.entity';
+import { TaskService } from 'src/main/task/task.service';
 
 @Resolver(() => Project)
 export class ProjectResolver {

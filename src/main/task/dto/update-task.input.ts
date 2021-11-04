@@ -2,7 +2,7 @@ import { CreateTaskInput } from './create-task.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 import { Schema as MongooseSchema } from 'mongoose';
 import { TaskPriority, TaskType } from '../entities/task.entity';
-import { Status } from 'src/project/entities/project.entity';
+import { Status } from 'src/main/project/entities/project.entity';
 @InputType()
 export class UpdateTaskInput extends PartialType(CreateTaskInput) {
   @Field(() => String)
