@@ -18,8 +18,13 @@ export class MailService {
     const id = v4()
 
     // 在redis上保存uuid
-    await redis.set(id, newUser._id, 'ex', 60 * 60 * 15)
-    console.log(this.configService.get('BASE_URL') + `/user/confirm/${id}`)
+    await redis.set(`confirmEmail: ${id}`, newUser._id, 'ex', 60 * 60 * 15)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
 
     // 发送邀请邮件
     return this.mailerService.sendMail({
