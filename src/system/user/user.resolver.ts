@@ -5,12 +5,15 @@ import { Types, } from 'mongoose'
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-errors';
-import { LoginInput } from './dto/login.input';
-import { myContext } from 'src/common/type.context';
+import { AuthService } from '../auth/auth.service';
+import { LoginInput } from '../auth/dto/login.input';
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) { }
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) { }
 
   @Mutation(() => User)
   register(@Args('createUserInput') createUserInput: CreateUserInput): Promise<UserDocument | ApolloError> {
@@ -18,8 +21,8 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  login(@Args('loginInput') loginInput: LoginInput): Promise<UserDocument> {
-    return this.userService.login(loginInput)
+  login(@Args('loginInput') loginInput: LoginInput) {
+    // return this.
   }
 
   @Query(() => [User], { name: 'users' })

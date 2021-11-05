@@ -4,7 +4,6 @@ import { UserInputError, ApolloError } from 'apollo-server-express'
 import { Model, Types, } from 'mongoose';
 import { MailService } from 'src/system/mail/mail.service';
 import { CreateUserInput } from './dto/create-user.input';
-import { LoginInput } from './dto/login.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
@@ -56,16 +55,16 @@ export class UserService {
     return this.userModel.findOneAndDelete({ _id: id }).exec();
   }
 
-  async login(loginInput: LoginInput) {
-    const user = await this.findOneByCredential(loginInput.credential)
-    if (!user) throw new UserInputError('该用户不存在,请检查邮箱或用户名.')
+  // async login(loginInput: LoginInput) {
+  //   const user = await this.findOneByCredential(loginInput.credential)
+  //   if (!user) throw new UserInputError('该用户不存在,请检查邮箱或用户名.')
 
-    const isPassCorrect = bcrypt.compareSync(loginInput.password, user.password)
-    if (!isPassCorrect) throw new UserInputError('密码错误,请检查密码')
+  //   const isPassCorrect = bcrypt.compareSync(loginInput.password, user.password)
+  //   if (!isPassCorrect) throw new UserInputError('密码错误,请检查密码')
 
-    // 用户的信息正确
-    console.log('登录的用户：')
-    console.log(user)
-    return user
-  }
+  //   // 用户的信息正确
+  //   console.log('登录的用户：')
+  //   console.log(user)
+  //   return user
+  // }
 }
