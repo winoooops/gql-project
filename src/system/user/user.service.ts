@@ -1,13 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserInputError, ApolloError } from 'apollo-server-express'
-import { Model, Schema as MongooseSchema, Types, } from 'mongoose';
+import { Model, Types, } from 'mongoose';
 import { MailService } from 'src/system/mail/mail.service';
 import { CreateUserInput } from './dto/create-user.input';
+import { LoginInput } from './dto/login.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
-
-
+import * as bcrypt from 'bcrypt'
 @Injectable()
 export class UserService {
   constructor(
@@ -37,6 +37,13 @@ export class UserService {
     return this.userModel.findById(id).exec();
   }
 
+  async findOneByCredential(credential: string): Promise<UserDocument> {
+    // 用户名或者邮箱满足条件即可
+    return this.userModel.findOne({
+      $or: [{ username: credential, }, { email: credential }]
+    })
+  }
+
   async update(updateUserInput: UpdateUserInput) {
     return this.userModel.findByIdAndUpdate(
       updateUserInput._id,
@@ -45,7 +52,20 @@ export class UserService {
     )
   }
 
-  remove(id: Types.ObjectId): Promise<UserDocument> {
+  async remove(id: Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findOneAndDelete({ _id: id }).exec();
+  }
+
+  async login(loginInput: LoginInput) {
+    const user = await this.findOneByCredential(loginInput.credential)
+    if (!user) throw new UserInputError('该用户不存在,请检查邮箱或用户名.')
+
+    const isPassCorrect = bcrypt.compareSync(loginInput.password, user.password)
+    if (!isPassCorrect) throw new UserInputError('密码错误,请检查密码')
+
+    // 用户的信息正确
+    console.log('登录的用户：')
+    console.log(user)
+    return user
   }
 }

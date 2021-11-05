@@ -18,7 +18,7 @@ export class MailService {
     const id = v4()
 
     // 在redis上保存uuid
-    await redis.set(`confirmEmail: ${id}`, newUser._id, 'ex', 60 * 60 * 15)
+    await redis.set(id, newUser._id, 'ex', 60 * 60 * 15)
       .then(res => {
         console.log(res)
       })
@@ -44,7 +44,7 @@ export class MailService {
     const userId = await redis.get(id)
     // if userId has expired or not exist  
     if (!userId) throw new NotFoundException()
-
+    console.log(userId)
     return userId
   }
 }

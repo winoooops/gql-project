@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 // import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+const isProd = process.env.NODE_ENV === 'production'
 
 async function bootstrap() {
   // 生产app

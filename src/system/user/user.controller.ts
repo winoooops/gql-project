@@ -16,6 +16,7 @@ export class UserController {
     // 通过id查找数据库并更新确认状态
     console.log(`confirming with id: ` + id)
     const userId = await this.mailService.confirmEmail(id)
+      .catch(err => { throw new Error(err) })
     console.log(`用户${userId}正在完成注册...`)
     console.log(new Types.ObjectId(userId))
     await this.userService.update(

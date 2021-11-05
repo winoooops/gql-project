@@ -82,11 +82,20 @@ input ListProjectInput {
   status: Float
 }
 
+input LoginInput {
+  """用户名或邮箱"""
+  credential: String!
+
+  """密码"""
+  password: String!
+}
+
 type Mutation {
   createProject(createProjectInput: CreateProjectInput!): Project!
 
   """创建任务"""
   createTask(createTaskInput: CreateTaskInput!): Task!
+  login(loginInput: LoginInput!): User!
   register(createUserInput: CreateUserInput!): User!
   removeProject(id: String!): Project!
 
