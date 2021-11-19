@@ -7,6 +7,8 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-errors';
 import { AuthService } from '../auth/auth.service';
 import { LoginInput } from '../auth/dto/login.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -29,10 +31,17 @@ export class UserResolver {
     return this.userService.findAll();
   }
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => User)
   findOneById(@Args('id', { type: () => String }) id: Types.ObjectId) {
     return this.userService.findOneById(id);
   }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => User, { name: 'user' })
+  findOne(@Args('credential') credential: string) {
+    return this.userService.findOneByCredential(credential)
+  }
+
 
   @Mutation(() => User)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {

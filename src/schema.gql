@@ -138,6 +138,7 @@ type Project {
 type Query {
   """根据项目id查找任务"""
   findByProjectId(projectId: String!): [Task!]!
+  findOneById(id: String!): User!
 
   """根据id查找项目"""
   project(id: String!): Project!
@@ -150,7 +151,7 @@ type Query {
 
   """条件查询任务"""
   tasks: [Task!]!
-  user(id: String!): User!
+  user(credential: String!): User!
   users: [User!]!
 }
 
