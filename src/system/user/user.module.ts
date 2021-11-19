@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  providers: [UserResolver, UserService, MailService, AuthService],
+  providers: [UserResolver, UserService, MailService],
   controllers: [UserController],
   exports: [UserService],
 })

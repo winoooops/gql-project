@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport'
 import { InjectModel } from '@nestjs/mongoose';
 import { UserInputError, ApolloError } from 'apollo-server-express'
 import { Model, Types, } from 'mongoose';
@@ -6,7 +7,6 @@ import { MailService } from 'src/system/mail/mail.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
-import * as bcrypt from 'bcrypt'
 @Injectable()
 export class UserService {
   constructor(
@@ -14,6 +14,7 @@ export class UserService {
     private mailService: MailService
   ) { }
 
+  @UseGuards(AuthGuard('local'))
   async create(createUserInput: CreateUserInput): Promise<UserDocument | ApolloError> {
     // 判断是否email是否被注册过
     const oldRecord = await this.userModel.findOne({ email: createUserInput.email }).exec()

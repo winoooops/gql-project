@@ -12,7 +12,6 @@ import { LoginInput } from '../auth/dto/login.input';
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService,
   ) { }
 
   @Mutation(() => User)
