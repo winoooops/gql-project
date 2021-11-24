@@ -2,11 +2,12 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport'
 import { InjectModel } from '@nestjs/mongoose';
 import { UserInputError, ApolloError } from 'apollo-server-express'
-import { Model, Types, } from 'mongoose';
+import { Model, Schema as MongooseSchema } from 'mongoose';
 import { MailService } from 'src/system/mail/mail.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -33,7 +34,7 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async findOneById(id: Types.ObjectId): Promise<UserDocument> {
+  async findOneById(id: MongooseSchema.Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findById(id).exec();
   }
 
@@ -41,6 +42,13 @@ export class UserService {
     // 用户名或者邮箱满足条件即可
     return this.userModel.findOne({
       $or: [{ username: credential, }, { email: credential }]
+    })
+  }
+
+  async findManyByProject(projectId: MongooseSchema.Types.ObjectId): Promise<UserDocument[]> {
+    // 找到project包含projectId的用户
+    return this.userModel.find({
+      projects: { $all: [projectId] }
     })
   }
 
@@ -52,7 +60,7 @@ export class UserService {
     )
   }
 
-  async remove(id: Types.ObjectId): Promise<UserDocument> {
+  async remove(id: MongooseSchema.Types.ObjectId): Promise<UserDocument> {
     return this.userModel.findOneAndDelete({ _id: id }).exec();
   }
 

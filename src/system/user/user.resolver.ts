@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int, Context, } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User, UserDocument } from './entities/user.entity';
-import { Types, } from 'mongoose'
+import { Schema as MongooseSchema } from 'mongoose'
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { ApolloError } from 'apollo-server-errors';
@@ -32,7 +32,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  findOneById(@Args('id', { type: () => String }) id: Types.ObjectId) {
+  findOneById(@Args('id', { type: () => String }) id: MongooseSchema.Types.ObjectId) {
     return this.userService.findOneById(id);
   }
 
@@ -49,7 +49,7 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id', { type: () => String }) id: Types.ObjectId) {
+  removeUser(@Args('id', { type: () => String }) id: MongooseSchema.Types.ObjectId) {
     return this.userService.remove(id);
   }
 }

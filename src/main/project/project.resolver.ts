@@ -7,20 +7,23 @@ import { UpdateProjectInput } from './dto/update-project.input';
 import { ListProjectInput } from './dto/list-project.input';
 import { Task } from 'src/main/task/entities/task.entity';
 import { TaskService } from 'src/main/task/task.service';
+import { UserService } from 'src/system/user/user.service';
+import { User } from 'src/system/user/entities/user.entity';
 
 @Resolver(() => Project)
 export class ProjectResolver {
   constructor(
     private readonly projectService: ProjectService,
     private readonly taskService: TaskService,
+    private readonly userService: UserService,
   ) { }
 
   @Query(() => [Project], { name: 'projects', description: '全部项目' })
   findAll(
     @Args('listProjectInput', { nullable: true })
-    ListProjectInput?: ListProjectInput,
+    listProjectInput?: ListProjectInput,
   ) {
-    return this.projectService.findAll(ListProjectInput);
+    return this.projectService.findAll(listProjectInput);
   }
 
   @Query(() => Project, { name: 'project', description: '根据id查找项目' })
@@ -54,6 +57,11 @@ export class ProjectResolver {
   @ResolveField(() => [Task])
   tasks(@Parent() parent: Project) {
     return this.taskService.findByProjectId(parent._id)
+  }
+
+  @ResolveField(() => [User])
+  users(@Parent() parent: Project) {
+    return this.userService.findManyByProject(parent._id)
   }
 
 }

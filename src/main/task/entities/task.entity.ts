@@ -37,10 +37,6 @@ export class Task {
   @Field(() => String, { description: '项目id' })
   projectId: MongooseSchema.Types.ObjectId;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'project' })
-  @Field(() => Project, { description: '项目信息' })
-  project: Project;
-
   @Prop()
   @Field({ description: '任务优先级' })
   priority: TaskPriority;
@@ -48,6 +44,10 @@ export class Task {
   @Prop()
   @Field({ description: '任务状态' })
   status: Status;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'project' })
+  @Field(() => Project, { description: '项目信息' })
+  project?: Project;
 
   @Prop()
   @Field(() => Int, { nullable: true, description: '预估时间' })

@@ -35,6 +35,10 @@ export class User {
   @Field(() => String, { description: '头像', nullable: true })
   avatar?: string;
 
+  @Prop()
+  @Field(() => [String], { description: '项目', nullable: true })
+  projects?: [MongooseSchema.Types.ObjectId]
+
   // @Prop()
   // @Field({ description: '用户设置' })
   // settings: UserSettings

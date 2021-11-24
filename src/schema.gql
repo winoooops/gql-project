@@ -58,6 +58,9 @@ input CreateUserInput {
   """用户密码"""
   password: String!
 
+  """项目"""
+  projects: [String!]
+
   """用户名"""
   username: String!
 }
@@ -133,6 +136,7 @@ type Project {
 
   """项目全部任务"""
   tasks: [Task!]
+  users: [User!]!
 }
 
 type Query {
@@ -253,6 +257,9 @@ input UpdateUserInput {
   """用户密码"""
   password: String
 
+  """项目"""
+  projects: [String!]
+
   """用户名"""
   username: String
 }
@@ -272,6 +279,9 @@ type User {
 
   """用户密码"""
   password: String!
+
+  """项目"""
+  projects: [String!]
 
   """用户名"""
   username: String!

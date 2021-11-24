@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Schema as MongooseSchema } from 'mongoose';
 
 @InputType()
 export class CreateUserInput {
@@ -16,4 +17,7 @@ export class CreateUserInput {
 
   @Field(() => Boolean, { description: '是否确认', defaultValue: false })
   confirmed: boolean;
+
+  @Field(() => [String], { description: '项目', nullable: true })
+  projects: [MongooseSchema.Types.ObjectId]
 }
