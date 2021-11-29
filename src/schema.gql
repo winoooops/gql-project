@@ -127,6 +127,9 @@ type Query {
   """根据id集合查找项目"""
   findProjectsByIds(ids: [String!]!): [Project!]!
 
+  """根据项目ID查找参与项目的人员"""
+  findUsersByProjectId(projectId: String!): [User!]!
+
   """根据id查找项目"""
   project(id: String!): Project!
 

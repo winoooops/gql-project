@@ -45,6 +45,10 @@ export class UserResolver {
     return this.userService.findOneByCredential(credential)
   }
 
+  @Query(() => [User], { description: '根据项目ID查找参与项目的人员' })
+  findUsersByProjectId(@Args('projectId', { type: () => String }) projectId: MongooseSchema.Types.ObjectId) {
+    return this.userService.findManyByProject(projectId)
+  }
 
   @Mutation(() => User)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
