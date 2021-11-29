@@ -59,30 +59,10 @@ input CreateUserInput {
   password: String!
 
   """项目"""
-  projects: [String!]
+  projectIds: [String!]
 
   """用户名"""
   username: String!
-}
-
-input ListProjectInput {
-  """项目id"""
-  _id: String
-
-  """项目结束时间"""
-  endDate: String
-
-  """项目名称"""
-  name: String
-
-  """项目参与人"""
-  persons: [String!]
-
-  """项目开始时间"""
-  startDate: String
-
-  """进行状态"""
-  status: Float
 }
 
 input LoginInput {
@@ -144,11 +124,14 @@ type Query {
   findByProjectId(projectId: String!): [Task!]!
   findOneById(id: String!): User!
 
+  """根据id集合查找项目"""
+  findProjectsByIds(ids: [String!]!): [Project!]!
+
   """根据id查找项目"""
   project(id: String!): Project!
 
   """全部项目"""
-  projects(listProjectInput: ListProjectInput): [Project!]!
+  projects: [Project!]!
 
   """根据id查找任务"""
   task(id: String!): Task!
@@ -258,7 +241,7 @@ input UpdateUserInput {
   password: String
 
   """项目"""
-  projects: [String!]
+  projectIds: [String!]
 
   """用户名"""
   username: String
@@ -281,7 +264,8 @@ type User {
   password: String!
 
   """项目"""
-  projects: [String!]
+  projectIds: [String!]
+  projects: [Project!]!
 
   """用户名"""
   username: String!

@@ -18,5 +18,6 @@ import { MailService } from 'src/system/mail/mail.service';
     ]),
   ],
   providers: [ProjectResolver, ProjectService, TaskService, UserService, MailService],
+  exports: [ProjectService],
 })
 export class ProjectModule { }

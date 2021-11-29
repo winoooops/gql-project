@@ -37,7 +37,7 @@ export class User {
 
   @Prop()
   @Field(() => [String], { description: '项目', nullable: true })
-  projects?: [MongooseSchema.Types.ObjectId]
+  projectIds?: [MongooseSchema.Types.ObjectId]
 
   // @Prop()
   // @Field({ description: '用户设置' })

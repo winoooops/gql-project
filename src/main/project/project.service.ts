@@ -5,7 +5,6 @@ import { CreateProjectInput } from './dto/create-project.input';
 import { UpdateProjectInput } from './dto/update-project.input';
 import { Project, ProjectDocument } from './entities/project.entity';
 import { Schema as MongooseSchema } from 'mongoose';
-import { ListProjectInput } from './dto/list-project.input';
 @Injectable()
 export class ProjectService {
   constructor(
@@ -17,13 +16,20 @@ export class ProjectService {
     return newProject.save();
   }
 
-  findAll(listProjectInput: ListProjectInput): Promise<ProjectDocument[]> {
-    return this.projectModel.find(listProjectInput).exec();
+  findAll(): Promise<ProjectDocument[]> {
+    return this.projectModel.find().exec();
   }
 
   findOne(_id: MongooseSchema.Types.ObjectId): Promise<ProjectDocument> {
     return this.projectModel.findById(_id).exec();
   }
+
+  findByIds(ids: MongooseSchema.Types.ObjectId[]) {
+    return this.projectModel.find({
+      _id: { $in: ids }
+    }).exec()
+  }
+
 
   update(updateProjectInput: UpdateProjectInput): Promise<ProjectDocument> {
     return this.projectModel

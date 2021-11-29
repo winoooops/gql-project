@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, Context, } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context, Parent, ResolveField, } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User, UserDocument } from './entities/user.entity';
 import { Schema as MongooseSchema } from 'mongoose'
@@ -9,11 +9,14 @@ import { AuthService } from '../auth/auth.service';
 import { LoginInput } from '../auth/dto/login.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { Project } from 'src/main/project/entities/project.entity';
+import { ProjectService } from 'src/main/project/project.service';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
+    private readonly projectService: ProjectService,
   ) { }
 
   @Mutation(() => User)
@@ -52,4 +55,11 @@ export class UserResolver {
   removeUser(@Args('id', { type: () => String }) id: MongooseSchema.Types.ObjectId) {
     return this.userService.remove(id);
   }
+
+  @ResolveField(() => [Project])
+  projects(@Parent() parent: User) {
+    return this.projectService.findByIds(parent.projectIds)
+  }
+
+
 }

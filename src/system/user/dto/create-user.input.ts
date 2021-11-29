@@ -19,5 +19,5 @@ export class CreateUserInput {
   confirmed: boolean;
 
   @Field(() => [String], { description: '项目', nullable: true })
-  projects: [MongooseSchema.Types.ObjectId]
+  projectIds: [MongooseSchema.Types.ObjectId]
 }
