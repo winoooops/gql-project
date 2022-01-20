@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { ProjectModule } from './main/project/project.module';
 import { TaskModule } from './main/task/task.module';
 import { SystemModule } from './system/system.module';
+import { InboxModule } from './main/inbox/inbox.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { SystemModule } from './system/system.module';
     ProjectModule,
     TaskModule,
     SystemModule,
+    InboxModule,
   ],
   controllers: [AppController],
   providers: [AppService],
